@@ -1,0 +1,36 @@
+<%- layout("layouts/boilerplate") %>
+<div id="map" class="cluster-map"></div>
+<h1>Campgrounds</h1>
+<% for( let campground of allCampgrounds ) { %>
+<div class="card mb-3 overflow-hidden">
+  <div class="row">
+    <div class="col-4">
+      <% if (campground.images.length !== 0) { %>
+       <img
+        class="img-fluid h-100"
+        src="<%= campground.images[0].url %>"
+        alt="<%= campground.title %>"
+      />
+      <% } else { %>
+        <img
+          class="img-fluid h-100"
+          src="https://res.cloudinary.com/dk5awi1mn/image/upload/v1666106484/YelpCamp/kmc2gpf6holbxckfyfik.jpg"
+          alt="<%= campground.title %>"
+        />
+      <% } %>
+    </div>
+    <div class="col-8 p-3">
+      <h2><%= campground.title %></h2>
+      <h5 class="text-muted"><%= campground.location %></h5>
+      <p><%= campground.description %></p>
+      <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary"
+        >Visit <%= campground.title %>
+      </a>
+    </div>
+  </div>
+</div>
+<% } %>
+<script>
+  const campgrounds = {features: <%- JSON.stringify(allCampgrounds) %>}
+</script>
+<script src="/scripts/clusterMap.js"></script>
