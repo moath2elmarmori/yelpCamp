@@ -1,0 +1,22 @@
+@media (max-width: 767px) {
+  html {
+    font-size: 11px;
+  }
+  .campground-card-index-page .row {
+    flex-direction: column;
+  }
+  .campground-card-index-page .row > div {
+    width: 100%;
+    text-align: center;
+  }
+  .campground-page {
+    flex-direction: column;
+    align-items: center;
+  }
+  .campground-page > div {
+    width: 100%;
+  }
+  .campground-page div:first-child .card {
+    margin-bottom: 20px;
+  }
+}
