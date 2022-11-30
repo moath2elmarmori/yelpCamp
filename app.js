@@ -13,7 +13,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const helmet = require("helmet");
-const MongoDBStore = require("connect-mongo")
+const MongoDBStore = require("connect-mongo");
 // requiring from folders
 const User = require("./models/userModel");
 const ExpressError = require("./utils/ExpressError");
@@ -23,9 +23,7 @@ const usersRoutes = require("./routes/usersRoutes");
 
 // setting mongoose connection with mongoDBAtlas
 const dbUrl = process.env.DB_URL;
-mongoose.connect(
-  dbUrl
-);
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", (err) => {
   console.log("Error from mongoose connection");
@@ -53,12 +51,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 // initializing the session store to our mongo database (session store defaults to memory, and we don't want that)
-const secret = process.env.SECRET || "thisshouldbeagoodsecret"
+const secret = process.env.SECRET || "thisshouldbeagoodsecret";
 const store = new MongoDBStore({
   mongoUrl: dbUrl,
   secret,
   touchAfter: 24 * 60 * 60,
-})
+});
 
 // initializing the session options
 const sessionConfig = {
@@ -83,55 +81,54 @@ app.use(flash());
 
 // using helmet for more security
 const scriptSrcUrls = [
-    "https://stackpath.bootstrapcdn.com/",
-    "https://api.tiles.mapbox.com/",
-    "https://api.mapbox.com/",
-    "https://kit.fontawesome.com/",
-    "https://cdnjs.cloudflare.com/",
-    "https://cdn.jsdelivr.net/",
-    "https://res.cloudinary.com/dk5awi1mn/"
+  "https://stackpath.bootstrapcdn.com/",
+  "https://api.tiles.mapbox.com/",
+  "https://api.mapbox.com/",
+  "https://kit.fontawesome.com/",
+  "https://cdnjs.cloudflare.com/",
+  "https://cdn.jsdelivr.net/",
+  "https://res.cloudinary.com/dk5awi1mn/",
 ];
 const styleSrcUrls = [
-    "https://kit-free.fontawesome.com/",
-    "https://stackpath.bootstrapcdn.com/",
-    "https://api.mapbox.com/",
-    "https://api.tiles.mapbox.com/",
-    "https://fonts.googleapis.com/",
-    "https://use.fontawesome.com/",
-    "https://cdn.jsdelivr.net/",
-    "https://res.cloudinary.com/dk5awi1mn/"
+  "https://kit-free.fontawesome.com/",
+  "https://stackpath.bootstrapcdn.com/",
+  "https://api.mapbox.com/",
+  "https://api.tiles.mapbox.com/",
+  "https://fonts.googleapis.com/",
+  "https://use.fontawesome.com/",
+  "https://cdn.jsdelivr.net/",
+  "https://res.cloudinary.com/dk5awi1mn/",
 ];
 const connectSrcUrls = [
-    "https://*.tiles.mapbox.com",
-    "https://api.mapbox.com",
-    "https://events.mapbox.com",
-    "https://res.cloudinary.com/dk5awi1mn/"
+  "https://*.tiles.mapbox.com",
+  "https://api.mapbox.com",
+  "https://events.mapbox.com",
+  "https://res.cloudinary.com/dk5awi1mn/",
 ];
-const fontSrcUrls = [ "https://res.cloudinary.com/dk5awi1mn/" ];
- 
-app.use(
-    helmet.contentSecurityPolicy({
-        directives : {
-            defaultSrc : [],
-            connectSrc : [ "'self'", ...connectSrcUrls ],
-            scriptSrc  : [ "'unsafe-inline'", "'self'", ...scriptSrcUrls ],
-            styleSrc   : [ "'self'", "'unsafe-inline'", ...styleSrcUrls ],
-            workerSrc  : [ "'self'", "blob:" ],
-            objectSrc  : [],
-            imgSrc     : [
-                "'self'",
-                "blob:",
-                "data:",
-                "https://res.cloudinary.com/dk5awi1mn/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
-                "https://images.unsplash.com/"
-            ],
-            fontSrc    : [ "'self'", ...fontSrcUrls ],
-            mediaSrc   : [ "https://res.cloudinary.com/dk5awi1mn/" ],
-            childSrc   : [ "blob:" ]
-        }
-    })
-);
+const fontSrcUrls = ["https://res.cloudinary.com/dk5awi1mn/"];
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [],
+      connectSrc: ["'self'", ...connectSrcUrls],
+      scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+      workerSrc: ["'self'", "blob:"],
+      objectSrc: [],
+      imgSrc: [
+        "'self'",
+        "blob:",
+        "data:",
+        "https://res.cloudinary.com/dk5awi1mn/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
+        "https://images.unsplash.com/",
+      ],
+      fontSrc: ["'self'", ...fontSrcUrls],
+      mediaSrc: ["https://res.cloudinary.com/dk5awi1mn/"],
+      childSrc: ["blob:"],
+    },
+  })
+);
 
 // configuring authintication using passport
 app.use(passport.initialize());
@@ -158,12 +155,6 @@ app.use("/campgrounds/:id/reviews", reviewsRoutes);
 // @access public
 app.get("/", (req, res) => {
   res.render("home", { pageTitle: "YelpCamp" });
-});
-
-app.get("/fakeUser", async (req, res) => {
-  const user = new User({ email: "hmar@gmail.com", username: "hmar" });
-  const newUser = await User.register(user, "hmarhmar");
-  res.send(newUser);
 });
 
 app.all("*", (req, res, next) => {
