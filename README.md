@@ -11,11 +11,11 @@
 
 ### Screenshot
 
-![](./screen-shots/Screenshot_1.png)
+![HomePage](https://res.cloudinary.com/dk5awi1mn/image/upload/v1669898028/github-readme/YelpCamp/Screenshot_1_wyfjr6.png)
 
-![](./screen-shots/Screenshot_2.png)
+![Campgroudn Page](https://res.cloudinary.com/dk5awi1mn/image/upload/v1669898027/github-readme/YelpCamp/Screenshot_2_ankbub.png)
 
-![](./screen-shots/Screenshot_3.png)
+![Specific Campground Page](https://res.cloudinary.com/dk5awi1mn/image/upload/v1669898028/github-readme/YelpCamp/Screenshot_3_yrjljz.png)
 
 ---
 
