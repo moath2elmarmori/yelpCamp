@@ -1,6 +1,6 @@
 # [YelpCamp](https://moath-yelpcamp.onrender.com)
 
-## This project is the main project of the "The Web Developer Bootcamp 2022" course on Udemy by the Instructor "Colt Steele"
+## This project is the main project of the "The Web Developer Bootcamp 2022" course on Udemy by the Instructor "Colt Steele" done by ME
 
 ---
 
